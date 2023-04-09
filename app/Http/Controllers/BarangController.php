@@ -21,14 +21,20 @@ class BarangController extends Controller
         $data = [
             'kode_barang'=>$request->kode_barang,
             'nama_barang'=>$request->nama_barang,
+            'foto_barang'=>$request->foto_barang,
             'kategori_barang'=>$request->kategori_barang,
             'harga'=>$request->harga,
             'jumlah'=>$request->jumlah,
         ];
-        Barang:: create($data);
-
+        $barang = Barang::create($data); // create a new record in the database
+        if($request->hasFile('foto_barang')){
+            $request->file('foto_barang')->move('fotobarang/',$request->file('foto_barang')->getClientOriginalName());
+            $barang->foto_barang = $request->file('foto_barang')->getClientOriginalName(); // save the filename to the database
+            $barang->save();
+        }
         return redirect()->route('barang');
     }
+    
 
     public function edit($id){
         $barang = Barang::where('id',$id)->first();
@@ -40,6 +46,7 @@ class BarangController extends Controller
         $data = [
             'kode_barang'=>$request->kode_barang,
             'nama_barang'=>$request->nama_barang,
+            'foto_barang'=>$request->foto_barang,
             'kategori_barang'=>$request->kategori_barang,
             'harga'=>$request->harga,
             'jumlah'=>$request->jumlah,
@@ -55,4 +62,6 @@ class BarangController extends Controller
 
         return redirect()->route('barang');
     }
+
+
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BarangController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,4 +32,12 @@ Route::controller(BarangController::class)->prefix('barang')->group(function(){
     Route::get('edit/{id}','edit')->name('barang.edit');
     Route::post('edit/{id}','update')->name('barang.tambah.update');
     Route::get('hapus/{id}','hapus')->name('barang.hapus');
+});
+
+Route::controller(AuthController::class)->group(function(){
+    Route::get('register','register')->name('register');
+    Route::post('register','registerSimpan')->name('register.simpan');
+
+    Route::get('login','login')->name('login');
+    Route::post('login','loginAksi')->name('login.aksi');
 });
