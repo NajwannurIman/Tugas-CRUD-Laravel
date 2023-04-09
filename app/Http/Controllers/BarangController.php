@@ -15,8 +15,12 @@ class BarangController extends Controller
 
     public function tambah(){
         return view('barang.form');
-    }
-
+    }   
+    public function indek()
+{
+    $item = Barang::all();
+    return view('dashboard', ['barang' => $item]);
+}
     public function simpan(Request $request){
         $data = [
             'kode_barang'=>$request->kode_barang,

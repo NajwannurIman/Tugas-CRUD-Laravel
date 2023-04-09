@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BarangController;
 use Illuminate\Support\Facades\Route;
+use App\Models\Barang;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,8 +22,13 @@ Route::get('/', function () {
 
 
 Route::get('dashboard',function() {
-    return view('dashboard');
+    $barang = Barang::all(); 
+
+    return view('dashboard',compact(['barang']));
 })->name('dashboard');
+
+
+
 
 
 Route::controller(BarangController::class)->prefix('barang')->group(function(){
